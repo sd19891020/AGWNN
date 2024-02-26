@@ -1,0 +1,99 @@
+Overall experimental description:
+(a) The data and codes are shared at https://github.com/sd19891020/AGWNN.
+(b) Matlab software version requirement >= R2018a.
+(c) Directory structure: The root directory stores the main runing files of Matlab, AGWNN and Common directories store Matlab source codes; DATA directory stores experimental data.
+(d) Runing file naming format: main_exp{experiment serial number}_{experiment name}_{experiment sub-serial number}.m.
+(e) In order to prevent misuse, the codes related to the output function have been commented, and the comments can be removed when using it. The examples are as follows: %save(agwnnpath,'AGWNNModel'); %WriteCsvData(outPath,titles,vals); .
+
+
+Runing file list of experiment 1:
+main_exp1_syc_aicc_1.m
+main_exp1_syc_train_2.m
+main_exp1_syc_betahat_3.m
+main_exp1_syc_g1000_ystat_4.m
+
+Runing file list of experiment 2:
+main_exp2_pm25_train_1.m
+main_exp2_pm25_scatter_2.m
+main_exp2_pm25_learn_curve_3.m
+main_exp2_pm25_coefficient_evaluation_4.m
+main_exp2_pm25_betahat_yhat_5.m
+main_exp2_pm25_ystat_6.m
+
+Runing file list of discussion:
+main_exp3_gn_scale.m
+
+
+Detailed experimental instructions:
+
+Experiment 1.1, Validation of the availability of AICc indicators:
+The ".\DATA\SYN\s400.mat" file stores the synthetic sample data matrix;
+The ".\DATA\SYN\GW_FG.mat" file stores the spatial weight matrix of GWR-FW;
+Train the AGWNN model with four learning rates of 0.003, 0.009, 0.03, and 0.09 respectively;
+Draw figure based on the training results of the AGWNN model.
+
+Experiment 1.2, Train and store AGWNN model using AICc metric:
+Train the AGWNN model using AICc metrics and store the optimal model parameters in the ".\DATA\SYN\AGWNN.mat" file;
+Store the geographic coordinates, Y, and YHat results in the ".\DATA\SYN\YPY.csv" file;
+Store the original Beta, AGWNN BetaHat, and geographic coordinates in the ".\DATA\SYN\BBHUV.csv" file.
+
+Experiment 1.3, Compares the original Beta, GWR BetaHat, and AGWNN BetaHat:
+Read the ".\DATA\SYN\BBHUV.csv" file;
+Draw the comparison figure of the original Beta, GWR BetaHat, and AGWNN BetaHat.
+
+Experiment 1.4, Evaluates the predictive performance of the AGWNN model:
+The ".\DATA\SYN\AGWNN.mat" file stores the AGWNN model;
+The ".\DATA\SYN\s400_g1000.mat" file stores the 1000 groups of synthetic data;
+Use the AGWNN model to calculate the prediction value of Y corresponding to the 1000 synthetic data, and print out the statistical results;
+Store the statistical results (LOSS, RMSE, and Pearson correlation coefficients) in files of ".\DATA\SYN\LOSS.csv", ".\DATA\SYN\RMSE.csv", and ".\DATA\SYN\PR.csv".
+
+Experiment 2.1, Train AGWNN models for four seasons in 2019:
+".\DATA\PM25\NUVYXY_2019Q{season}.csv" store the variable data of the PM2.5-AOD model for four seasons;
+".\DATA\PM25\GW_FG_2019Q{season}.mat" store the spatial weight matrices (from GWR-FG) of ground-based stations for four seasons;
+Train the AGWNN models of four seasons in 2019 and store the optimal model parameters in files of ".\DATA\PM25\AGWNN_2019Q{season}.mat";
+Store the results of Y and YHat in files of ".\DATA\PM25\YPY_2019Q{season}.csv";
+Store the statistical results in files of ".\DATA\PM25\YPY_2019Q{season}.csv".
+
+Experiment 2.2, Comparison of regression results of all models:
+".\\DATA\\PM25\\YPY_2019Q1.csv" store the Y and YHat of ANN, GWR, MGWR, and AGWNN models;
+Draw fitting scatter plots for ANN, GWR, MGWR, and AGWNN models.
+
+Experiment 2.3, Comparison of learning curves between ANN and AGWNN models:
+Train ANN and AGWNN models with 5000 epochs as parameters, and record the loss results in the ".\DATA\PM25\Loss.csv" file;
+Draw the learning curves of ANN and AGWNN models.
+
+Experiment 2.4, Diagnosis of local regression coefficients for PM2.5-AOD in four seasons:
+".\DATA\PM25\AGWNN_2019Q{season}.mat" store the local regression coefficient information (see the field of AGWNNModel.BetaHat);
+Store the diagnostic results of the local regression coefficients for the four seasons in the ".\DATA\PM25\CE_STAT.csv" file.
+
+Experiment 2.5, Mapping of local regression coefficients:
+Store geographical coordinates, projected coordinates, Y, YHat, and BetaHat results in files of ".\DATA\PM25\UVYPYBETA_2019Q{season}.csv";
+Draw the maps for local regression coefficients (Betas);
+Draw the maps for PM2.5 estimation (YHat).
+
+Experiment 2.6, Output the statistical results of Y and YHat:
+".\DATA\PM25\NUVYXY_2019Q{season}.csv" store the variable Y of the PM2.5-AOD model for four seasons;
+".\DATA\PM25\AGWNN_2019Q{season}.mat" store the YHat information (see the field of AGWNNModel.YHat);
+Store the statistical results of Y and YHat in the ".\DATA\PM25\NUVYPY_STAT.csv" file.
+
+Experiment in discussion, Compare the relationship between experimental and diagnostic training samples and regression ability:
+Set different numbers of geographical neurons (400, 350, 300, 250, 200, and 150) to train the AGWNN models, and store the results in the files of ".\DATA\SYN\gn{number of geographical neurons}.mat";
+Draw the comparison figure of the performance and efficiency of the models under different training samples.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
