@@ -20,4 +20,4 @@ for qi=1:4
     %WriteCsvData(ypypaths(qi),titles,vals);
 end
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%GWR-FG模型的YHat和BetaHat结果已手动加入到文件中
